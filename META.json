@@ -54,5 +54,15 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/nqounet/p5-plack-app-jsonrpc/issues"
+      },
+      "homepage" : "https://github.com/nqounet/p5-plack-app-jsonrpc",
+      "repository" : {
+         "url" : "https://github.com/nqounet/p5-plack-app-jsonrpc.git",
+         "web" : "https://github.com/nqounet/p5-plack-app-jsonrpc"
+      }
+   },
    "version" : "0.01"
 }
