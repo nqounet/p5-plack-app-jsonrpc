@@ -8,7 +8,7 @@ Plack::App::JSONRPC - Yet another JSON-RPC 2.0 psgi application
     # app.psgi
     use Plack::App::JSONRPC;
     my $app = Plack::App::JSONRPC->new(
-        register => {
+        method => {
             echo => sub { $_[0] }
         }
     );

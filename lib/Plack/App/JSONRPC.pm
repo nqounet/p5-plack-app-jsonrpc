@@ -11,7 +11,7 @@ use Plack::Request;
 sub call {
     my ($self, $env) = @_;
     my $rpc = JSON::RPC::Spec->new;
-    while (my ($name, $callback) = each %{$self->{register}}) {
+    while (my ($name, $callback) = each %{$self->{method}}) {
         $rpc->register($name, $callback);
     }
     my $req = Plack::Request->new($env);
@@ -36,7 +36,7 @@ Plack::App::JSONRPC - Yet another JSON-RPC 2.0 psgi application
     # app.psgi
     use Plack::App::JSONRPC;
     my $app = Plack::App::JSONRPC->new(
-        register => {
+        method => {
             echo => sub { $_[0] }
         }
     );
