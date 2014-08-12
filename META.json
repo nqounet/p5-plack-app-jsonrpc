@@ -1,7 +1,7 @@
 {
    "abstract" : "Yet another JSON-RPC 2.0 psgi application",
    "author" : [
-      "nqounet <nobu@nishimiyahara.net>"
+      "nqounet <mail@nqou.net>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v2.1.1, CPAN::Meta::Converter version 2.142060",

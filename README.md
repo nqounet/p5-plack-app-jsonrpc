@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/nqounet/p5-plack-app-jsonrpc.png?branch=master)](https://travis-ci.org/nqounet/p5-plack-app-jsonrpc)
 # NAME
 
 Plack::App::JSONRPC - Yet another JSON-RPC 2.0 psgi application
@@ -29,4 +30,4 @@ it under the same terms as Perl itself.
 
 # AUTHOR
 
-nqounet <nobu@nishimiyahara.net>
+nqounet <mail@nqou.net>

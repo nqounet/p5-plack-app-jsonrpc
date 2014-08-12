@@ -58,7 +58,7 @@ it under the same terms as Perl itself.
 
 =head1 AUTHOR
 
-nqounet E<lt>nobu@nishimiyahara.netE<gt>
+nqounet E<lt>mail@nqou.netE<gt>
 
 =cut
 
