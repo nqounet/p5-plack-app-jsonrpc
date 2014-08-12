@@ -1,4 +1,4 @@
 name = "Plack-App-JSONRPC"
-# badges = ["travis"]
+badges = ["travis"]
 module_maker="ModuleBuildTiny"
 
