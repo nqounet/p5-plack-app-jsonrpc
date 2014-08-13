@@ -5,8 +5,6 @@ use Plack::App::JSONRPC;
 use Plack::Test;
 use HTTP::Request::Common qw(POST);
 
-# use DDP {deparse => 1};
-
 sub factorial {
     my $num = shift;
     return $num > 1 ? $num * factorial($num - 1) : 1;
@@ -38,6 +36,7 @@ subtest 'echo' => sub {
 subtest 'notification' => sub {
     my $res = $test->request(
         json_req('{"jsonrpc":"2.0","method":"echo","params":"ok"}'));
+
     is $res->code, 204, 'response no content';
 };
 

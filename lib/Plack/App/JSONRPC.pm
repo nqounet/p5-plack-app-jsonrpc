@@ -59,9 +59,9 @@ Plack::App::JSONRPC - Yet another JSON-RPC 2.0 psgi application
     $ plackup app.psgi
 
     # POST http://localhost:5000/jsonrpc
-    #   {"jsonrpc":"2.0","method":"echo","params":"Hello","id":1}
+    #     {"jsonrpc":"2.0","method":"echo","params":"Hello","id":1}
     # return content
-    #   {"jsonrpc":"2.0","result":"Hello","id":1}
+    #     {"jsonrpc":"2.0","result":"Hello","id":1}
 
 =head1 DESCRIPTION
 
