@@ -31,21 +31,21 @@ subtest 'echo' => sub {
     my $res = $test->request(
         json_req('{"jsonrpc":"2.0","method":"echo","params":"ok","id":1}'));
 
-    ok $res->is_success, 'request';
+    is $res->code, 200, 'request';
     like $res->decoded_content, qr/\Q"result":"ok"\E/, 'response echo';
 };
 
 subtest 'notification' => sub {
     my $res = $test->request(
         json_req('{"jsonrpc":"2.0","method":"echo","params":"ok"}'));
-    like $res->status_line, qr/^204/, 'response no content';
+    is $res->code, 204, 'response no content';
 };
 
 subtest 'empty' => sub {
     my $res = $test->request(
         json_req('{"jsonrpc":"2.0","method":"empty","params":"ok","id":1}'));
 
-    ok $res->is_success, 'request';
+    is $res->code, 200, 'request';
     like $res->decoded_content, qr/\Q"result":""\E/, 'response empty';
 };
 
@@ -53,7 +53,7 @@ subtest 'factorial' => sub {
     my $res = $test->request(
         json_req('{"jsonrpc":"2.0","method":"factorial","params":5,"id":1}'));
 
-    ok $res->is_success, 'request';
+    is $res->code, 200, 'request';
     like $res->decoded_content, qr/\Q"result":120\E/, 'response factorial';
 };
 
