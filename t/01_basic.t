@@ -3,7 +3,7 @@ use Test::More 0.98;
 
 use Plack::App::JSONRPC;
 use Plack::Test;
-use HTTP::Request::Common;
+use HTTP::Request::Common qw(POST);
 
 # use DDP {deparse => 1};
 
@@ -20,31 +20,33 @@ my $app = Plack::App::JSONRPC->new(
     }
 );
 
-my $test = Plack::Test->create($app);
-my ($res);
-subtest 'echo' => sub {
-$res = $test->request(POST '/',
-    'content-type' => 'application/json',
-    Content        => '{"jsonrpc":"2.0","method":"echo","params":"ok","id":1}');
+sub json_req {
+    POST '/',
+      'Content-Type' => 'application/json',
+      Content        => shift;
+}
 
-ok $res->is_success, 'request';
-like $res->decoded_content, qr/\Q"result":"ok"\E/, 'method echo';
+my $test = Plack::Test->create($app);
+subtest 'echo' => sub {
+    my $res = $test->request(
+        json_req('{"jsonrpc":"2.0","method":"echo","params":"ok","id":1}'));
+
+    ok $res->is_success, 'request';
+    like $res->decoded_content, qr/\Q"result":"ok"\E/, 'response echo';
 };
 
 subtest 'notification' => sub {
-$res = $test->request(POST '/',
-    'content-type' => 'application/json',
-    Content        => '{"jsonrpc":"2.0","method":"echo","params":"ok"}');
-like $res->status_line, qr/^204/, 'notification';
+    my $res = $test->request(
+        json_req('{"jsonrpc":"2.0","method":"echo","params":"ok"}'));
+    like $res->status_line, qr/^204/, 'response no content';
 };
 
 subtest 'empty' => sub {
-$res = $test->request(POST '/',
-    'content-type' => 'application/json',
-    Content        => '{"jsonrpc":"2.0","method":"empty","params":"ok","id":1}');
+    my $res = $test->request(
+        json_req('{"jsonrpc":"2.0","method":"empty","params":"ok","id":1}'));
 
-ok $res->is_success, 'request';
-like $res->decoded_content, qr/\Q"result":""\E/, 'method echo';
+    ok $res->is_success, 'request';
+    like $res->decoded_content, qr/\Q"result":""\E/, 'response echo';
 };
 done_testing;
 
