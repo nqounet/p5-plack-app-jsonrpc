@@ -7,15 +7,22 @@ our $VERSION = "0.01";
 use parent qw(Plack::Component);
 use JSON::RPC::Spec;
 use Plack::Request;
+use Plack::Util::Accessor qw(rpc);
 
-sub call {
-    my ($self, $env) = @_;
+sub prepare_app {
+    my ($self) = @_;
     my $rpc = JSON::RPC::Spec->new;
     while (my ($name, $callback) = each %{$self->{method}}) {
         $rpc->register($name, $callback);
     }
-    my $req = Plack::Request->new($env);
-    my $body = $rpc->parse($req->content);
+    $self->rpc($rpc);
+    return;
+}
+
+sub call {
+    my ($self, $env) = @_;
+    my $req  = Plack::Request->new($env);
+    my $body = $self->rpc->parse($req->content);
     if (length $body) {
         return [200, ['Content-Type' => 'application/json'], [$body]];
     }
