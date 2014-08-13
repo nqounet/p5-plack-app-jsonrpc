@@ -12,7 +12,7 @@ use Plack::Util::Accessor qw(rpc);
 sub prepare_app {
     my ($self) = @_;
     my $rpc = JSON::RPC::Spec->new;
-    while (my ($name, $callback) = each %{$self->{method}}) {
+    while (my ($name, $callback) = each %{$self->{methods}}) {
         $rpc->register($name, $callback);
     }
     $self->rpc($rpc);
@@ -42,15 +42,26 @@ Plack::App::JSONRPC - Yet another JSON-RPC 2.0 psgi application
 
     # app.psgi
     use Plack::App::JSONRPC;
-    my $app = Plack::App::JSONRPC->new(
-        method => {
-            echo => sub { $_[0] }
+    use Plack::Builder;
+    my $jsonrpc = Plack::App::JSONRPC->new(
+        methods => {
+            echo  => sub { $_[0] },
+            empty => sub {''}
         }
     );
-    $app->to_app;
+    my $app = sub { [204, [], []] };
+    builder {
+        mount '/jsonrpc', $jsonrpc->to_app;
+        mount '/' => $app;
+    };
 
     # run
     $ plackup app.psgi
+
+    # POST http://localhost:5000/jsonrpc
+    #   {"jsonrpc":"2.0","method":"echo","params":"Hello","id":1}
+    # return content
+    #   {"jsonrpc":"2.0","result":"Hello","id":1}
 
 =head1 DESCRIPTION
 

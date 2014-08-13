@@ -13,7 +13,7 @@ sub factorial {
 }
 
 my $app = Plack::App::JSONRPC->new(
-    method => {
+    methods => {
         echo      => sub { $_[0] },
         empty     => sub {''},
         factorial => \&factorial
@@ -46,7 +46,15 @@ subtest 'empty' => sub {
         json_req('{"jsonrpc":"2.0","method":"empty","params":"ok","id":1}'));
 
     ok $res->is_success, 'request';
-    like $res->decoded_content, qr/\Q"result":""\E/, 'response echo';
+    like $res->decoded_content, qr/\Q"result":""\E/, 'response empty';
 };
-done_testing;
 
+subtest 'factorial' => sub {
+    my $res = $test->request(
+        json_req('{"jsonrpc":"2.0","method":"factorial","params":5,"id":1}'));
+
+    ok $res->is_success, 'request';
+    like $res->decoded_content, qr/\Q"result":120\E/, 'response factorial';
+};
+
+done_testing;
