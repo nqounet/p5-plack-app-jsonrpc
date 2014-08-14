@@ -1,5 +1,5 @@
 {
-   "abstract" : "Yet another JSON-RPC 2.0 psgi application",
+   "abstract" : "(DEPRECATED) Yet another JSON-RPC 2.0 psgi application",
    "author" : [
       "nqounet <mail@nqou.net>"
    ],

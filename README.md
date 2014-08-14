@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/nqounet/p5-plack-app-jsonrpc.png?branch=master)](https://travis-ci.org/nqounet/p5-plack-app-jsonrpc)
 # NAME
 
-Plack::App::JSONRPC - Yet another JSON-RPC 2.0 psgi application
+Plack::App::JSONRPC - (DEPRECATED) Yet another JSON-RPC 2.0 psgi application
 
 # SYNOPSIS
 
